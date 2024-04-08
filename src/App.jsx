@@ -14,11 +14,13 @@ const App = () => {
     fetchTodos();
   }, [currentPage]);
 
+  // `http://localhost:5000/api/getTodo?page=${currentPage}`
+
   const fetchTodos = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/getTodo?page=${currentPage}`
+        `https://todo-task-be.onrender.com/api/getTodo?page=${currentPage}`
       );
       setTodos(response.data);
       setLoading(false);
@@ -38,7 +40,7 @@ const App = () => {
 
   const handleAddTodo = async () => {
     try {
-      await axios.post("http://localhost:5000/api/addTodo", {
+      await axios.post("https://todo-task-be.onrender.com/api/addTodo", {
         text: newTodoText,
       });
       setNewTodoText("");
@@ -50,7 +52,7 @@ const App = () => {
 
   const handleEditTodo = async (id, newText) => {
     try {
-      await axios.put(`http://localhost:5000/api/updateTodo/${id}`, {
+      await axios.put(`https://todo-task-be.onrender.com/api/updateTodo/${id}`, {
         text: newText,
       });
       fetchTodos();
@@ -61,7 +63,7 @@ const App = () => {
 
   const handleDeleteTodo = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/deleteTodo/${id}`);
+      await axios.delete(`https://todo-task-be.onrender.com/api/deleteTodo/${id}`);
       setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
       fetchTodos();
     } catch (error) {
